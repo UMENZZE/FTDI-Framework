@@ -48,7 +48,7 @@
 
 **FTDI** is a budget-aware self-healing framework for LLM-based multi-agent code generation. When faults corrupt the Coder output in a Planner→Coder→Tester pipeline—whether caused by semantic perturbations, runtime errors, or structural injections—FTDI intercepts, diagnoses, and repairs compromised outputs through a tiered repair strategy, spending budget only where diagnostic evidence justifies it.
 
-FTDI separates **diagnosis** (Online Auditor, zero token cost) from **repair** (tiered T0/T1/T2), and routes each failed instance to the most cost-effective tier via a greedy cost-benefit policy ($\rho_k = p(k \mid \text{fail\_type}) / c_k$). A budget gate $s > \tau \wedge \text{Remain}(\mathcal{B}) > 0$ suppresses low-value retries.
+
 
 <p align="center">
   <img src="images/FTDI_Framework_Overview.png" width="90%">
