@@ -1,0 +1,357 @@
+{
+  "_meta": {
+    "version": "2.0",
+    "description": "General Cure Library - manual rules and distilled rules",
+    "sources": [
+      "manual",
+      "distilled"
+    ],
+    "last_updated": "2025-11-26"
+  },
+  "import_error": [
+    {
+      "text": "Do not import builtins from typing: `str`, `int`, `list`, `dict`, `tuple` are Python builtins; use them directly.",
+      "tags": [
+        "typing",
+        "builtin",
+        "shadowing"
+      ],
+      "source": "manual",
+      "patterns": [
+        "from typing import str",
+        "from typing import int"
+      ]
+    },
+    {
+      "text": "Check module name spelling, e.g. `typing` not `tpying`, `math` not `mat`.",
+      "tags": [
+        "typo",
+        "module"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "Import names are case-sensitive. e.g. `from typing import List` (capital L), not `lIST` or `lst`.",
+      "tags": [
+        "case-sensitive",
+        "List",
+        "Dict"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "Verify the imported name actually exists in the module (e.g. check function spelling in `from math import ...`).",
+      "tags": [
+        "attribute",
+        "import"
+      ],
+      "source": "manual"
+    }
+  ],
+  "syntax_error": [
+    {
+      "text": "Comparison vs assignment: use `==` (comparison) not `=` (assignment) in `if`, `elif`, `while` conditions.",
+      "tags": [
+        "if",
+        "=",
+        "=="
+      ]
+    },
+    {
+      "text": "Ensure `if`, `else`, `elif`, `for`, `while`, `def` statements end with a colon `:`.",
+      "tags": [
+        "missing-colon",
+        ":"
+      ]
+    },
+    {
+      "text": "Check all parentheses `()`, brackets `[]`, and braces `{}` are properly matched.",
+      "tags": [
+        "unmatched",
+        "parentheses",
+        "brackets"
+      ]
+    },
+    {
+      "text": "Check string literals (especially triple-quoted `\"\"\"` docstrings) are properly closed.",
+      "tags": [
+        "string",
+        "unterminated"
+      ]
+    },
+    {
+      "text": "Generator expressions with extra args need parentheses: `sum((x for x in s))`.",
+      "tags": [
+        "generator",
+        "syntax"
+      ]
+    },
+    {
+      "text": "Cannot assign to function calls or literals (e.g. `len(x) = 3` is invalid).",
+      "tags": [
+        "assignment",
+        "invalid"
+      ]
+    }
+  ],
+  "name_error": [
+    {
+      "text": "Python booleans are `True` and `False` (capitalized). Do not write `TruE`, `TRUE`, `false`, or `non` (should be `None`).",
+      "tags": [
+        "True",
+        "False",
+        "None",
+        "case",
+        "boolean"
+      ],
+      "source": "manual",
+      "patterns": [
+        "TruE",
+        "Tru ",
+        "TRUE",
+        "FalsE",
+        "Fasle",
+        "non "
+      ],
+      "tests": [
+        "assert True == True",
+        "assert False == False",
+        "x = None"
+      ]
+    },
+    {
+      "text": "Check variable name spelling. Common typos: `result` -> `resutl`, `words` -> `word`, `list` -> `lsit`.",
+      "tags": [
+        "typo",
+        "result",
+        "variable"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "Ensure variables are assigned before use. Check for variables defined inside loops used outside.",
+      "tags": [
+        "scope",
+        "undefined"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "Ensure variable names in function body match the parameter list (e.g. param is `nums` but used `numbrs`).",
+      "tags": [
+        "parameter",
+        "consistency"
+      ],
+      "source": "manual"
+    }
+  ],
+  "indentation_error": [
+    {
+      "text": "Keep consistent indentation within the same block (typically 4 spaces).",
+      "tags": [
+        "indent",
+        "spaces"
+      ]
+    },
+    {
+      "text": "Check for unexpected indentation after `return` or `raise` statements.",
+      "tags": [
+        "unexpected-indent"
+      ]
+    }
+  ],
+  "attribute_error": [
+    {
+      "text": "Check method name spelling (e.g. `limit_denominator` not `limi_denominator`, `append` not `apend`).",
+      "tags": [
+        "typo",
+        "method"
+      ]
+    },
+    {
+      "text": "Verify the object type supports the called method (e.g. `int` has no `len()` method).",
+      "tags": [
+        "type-mismatch",
+        "attribute"
+      ]
+    }
+  ],
+  "type_error": [
+    {
+      "text": "Do not call `len()` on integers. Check `range()` args: step (3rd arg) cannot be 0.",
+      "tags": [
+        "len",
+        "int",
+        "range"
+      ]
+    },
+    {
+      "text": "Ensure consistent argument types; cast explicitly when needed, e.g. `idx = int(idx)`. Use `//` for integer division.",
+      "tags": [
+        "convert",
+        "//",
+        "int",
+        "cast"
+      ]
+    },
+    {
+      "text": "Avoid `str + int`: use f-strings `f'{n}'` or `str(n)` for concatenation.",
+      "tags": [
+        "str",
+        "concat"
+      ]
+    }
+  ],
+  "off_by_one": [
+    {
+      "text": "Last element index is `len(a)-1`; range end is exclusive.",
+      "tags": [
+        "range",
+        "len-1"
+      ],
+      "source": "manual",
+      "tests": [
+        "a = [1,2,3]; assert a[len(a)-1] == 3",
+        "list(range(3)) == [0,1,2]"
+      ]
+    },
+    {
+      "text": "Standard traversal pattern: `for i in range(len(a)): ...` using `a[i]`.",
+      "tags": [
+        "pattern"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "`range(0, n)` covers 0..n-1; to include n use `range(0, n+1)`.",
+      "tags": [
+        "inclusive",
+        "exclusive"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "`enumerate(xs, 1)` starts index from 1; `enumerate(xs[1:], 1)` skips first element with index from 1.",
+      "tags": [
+        "enumerate",
+        "start",
+        "slice"
+      ],
+      "source": "manual",
+      "tests": [
+        "list(enumerate(['a','b'], 1)) == [(1,'a'), (2,'b')]"
+      ]
+    }
+  ],
+  "boundary_condition": [
+    {
+      "text": "Early return for empty input: `if not arr: return 0` or appropriate default.",
+      "tags": [
+        "early-return",
+        "empty"
+      ],
+      "source": "manual",
+      "tests": [
+        "f([]) should return default",
+        "f('') should handle empty string"
+      ]
+    },
+    {
+      "text": "Handle n==0 / n==1 edge cases to avoid unnecessary loops.",
+      "tags": [
+        "n==0",
+        "n==1"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "Guard against None: `if x is None: return ...` or `raise ValueError`.",
+      "tags": [
+        "None",
+        "guard"
+      ],
+      "source": "manual"
+    },
+    {
+      "text": "`<` is strict less-than, `<=` is less-than-or-equal. Choose the correct operator per requirements.",
+      "tags": [
+        "comparison",
+        "<",
+        "<=",
+        "threshold"
+      ],
+      "source": "manual",
+      "tests": [
+        "1 < 2 is True",
+        "2 <= 2 is True",
+        "2 < 2 is False"
+      ]
+    }
+  ],
+  "deviation": [
+    {
+      "text": "Output contract: only output one python code block, no extra explanation.",
+      "tags": [
+        "format",
+        "single-block"
+      ]
+    },
+    {
+      "text": "Do not modify function signature/name/parameter order.",
+      "tags": [
+        "signature",
+        "no-change"
+      ]
+    },
+    {
+      "text": "Keep return type stable: if original returns int, do not change to str.",
+      "tags": [
+        "return-type"
+      ]
+    }
+  ],
+  "uncertainty": [
+    {
+      "text": "Remove hedging words: do not write 'maybe', 'perhaps', 'try'.",
+      "tags": [
+        "no-hedge"
+      ]
+    },
+    {
+      "text": "Provide a definitive implementation; leave no TODOs.",
+      "tags": [
+        "deterministic"
+      ]
+    }
+  ],
+  "consistency": [
+    {
+      "text": "Obey Planner constraints: if globals are forbidden, do not introduce them.",
+      "tags": [
+        "planner",
+        "constraint"
+      ]
+    },
+    {
+      "text": "Match expected output format: same casing and formatting as examples.",
+      "tags": [
+        "format",
+        "case"
+      ]
+    }
+  ],
+  "default": [
+    {
+      "text": "General checklist: 1. Variable name spelling (True/None/resutl) 2. Import statements (typing) 3. Conditions (== vs =) 4. Boundary conditions (empty list/n=0).",
+      "tags": [
+        "checklist",
+        "sanity-check"
+      ],
+      "source": "manual"
+    }
+  ],
+  "_distilled": {
+    "description": "Auto-generated entries from distiller, clustered by failure pattern",
+    "entries": []
+  }
+}

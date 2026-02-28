@@ -1,0 +1,539 @@
+{
+  "default": [
+    {
+      "text": "Return None or default value when input list is empty; otherwise use max/min functions.",
+      "tags": [
+        "type-check",
+        "empty-list",
+        "max-function"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95
+    },
+    {
+      "text": "Check function signature matches docstring; ensure correct return type.",
+      "tags": [
+        "function-signature",
+        "return-type",
+        "type-check"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.85
+    }
+  ],
+  "boundary_condition": [
+    {
+      "text": "Empty list/string handling: check `if not lst: return []` before operations to avoid index errors.",
+      "tags": [
+        "boundary",
+        "empty-list",
+        "empty-string"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "tests": [
+        "input=([], )",
+        "input=('', )"
+      ]
+    },
+    {
+      "text": "Zero value handling: when input is 0, loops may not execute; handle n=0 separately.",
+      "tags": [
+        "boundary",
+        "zero-value",
+        "loop"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "tests": [
+        "input=(0,)",
+        "input=(0, 0)"
+      ]
+    },
+    {
+      "text": "Single-element list: `range(len(lst)-1)` may be empty when list has one element.",
+      "tags": [
+        "boundary",
+        "single-element",
+        "range"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.9,
+      "tests": [
+        "input=([1],)"
+      ]
+    },
+    {
+      "text": "Negative index boundary: `lst[-1]` raises error on empty list; check non-empty first.",
+      "tags": [
+        "boundary",
+        "negative-index",
+        "empty-list"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.9
+    },
+    {
+      "text": "String slice boundary: `s[i:j]` returns empty string when i >= len(s); validate indices.",
+      "tags": [
+        "boundary",
+        "string-slice",
+        "index"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.88
+    }
+  ],
+  "empty_input_handling": [
+    {
+      "text": "Empty list input: add `if not numbers: return []` or `return 0` at the start to prevent errors.",
+      "tags": [
+        "empty-input",
+        "list",
+        "early-return"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "tests": [
+        "input=([], )",
+        "input=([], 0)"
+      ]
+    },
+    {
+      "text": "Empty string input: check `if not s: return ''` or `return []` to avoid errors on empty strings.",
+      "tags": [
+        "empty-input",
+        "string",
+        "early-return"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "tests": [
+        "input=('',)"
+      ]
+    },
+    {
+      "text": "None input: add `if x is None: return default_value` to prevent NoneType errors.",
+      "tags": [
+        "empty-input",
+        "None",
+        "type-check"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.9
+    }
+  ],
+  "off_by_one": [
+    {
+      "text": "Range boundary: `range(n)` generates 0 to n-1; to include n use `range(n+1)`.",
+      "tags": [
+        "off-by-one",
+        "range",
+        "loop-boundary"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "tests": [
+        "range(n) vs range(n+1)"
+      ]
+    },
+    {
+      "text": "Index offset: `lst[i+1]` may be out-of-bounds; check `i < len(lst) - 1`.",
+      "tags": [
+        "off-by-one",
+        "index",
+        "out-of-bounds"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.92
+    },
+    {
+      "text": "Slice endpoint: `s[:i]` excludes index i; to include it use `s[:i+1]`.",
+      "tags": [
+        "off-by-one",
+        "slice",
+        "endpoint"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.9
+    },
+    {
+      "text": "Comparison operator: `<` vs `<=` — check whether equality should be included.",
+      "tags": [
+        "off-by-one",
+        "comparison",
+        "boundary"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.88
+    },
+    {
+      "text": "Positive number check: `>= 0` includes zero; for strictly positive use `> 0`. e.g. get_positive should return positive numbers, not non-negative.",
+      "tags": [
+        "off-by-one",
+        "positive-check",
+        "zero-value"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.92,
+      "tests": [
+        "input=([5, 3, -5, 2, 0, 123],)"
+      ],
+      "regex_fix": {
+        "pattern": "if\\s+(\\w+)\\s*>=\\s*0",
+        "replacement": "if \\1 > 0",
+        "context": "filter positive numbers"
+      }
+    },
+    {
+      "text": "Return value offset: `return i+1` is a common mistake; check whether it should be `return i`.",
+      "tags": [
+        "off-by-one",
+        "return-value",
+        "index"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.9,
+      "tests": [
+        "largest_divisor"
+      ]
+    },
+    {
+      "text": "Initial value offset: `total = 1` vs `total = 0` causes accumulation errors. Use 1 for multiplication, 0 for addition.",
+      "tags": [
+        "off-by-one",
+        "initial-value",
+        "accumulation"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.88
+    }
+  ],
+  "import_error": [
+    {
+      "text": "Typing imports require capitalization: `from typing import List, Dict, Optional`. Do not import int/str/float — they are builtins.",
+      "tags": [
+        "import-error",
+        "typing",
+        "type-annotation"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.98,
+      "patterns": [
+        "from typing import lst",
+        "from typing import lIST",
+        "from typing import float"
+      ]
+    },
+    {
+      "text": "Check module name spelling in import statements, e.g. `typing` not `tYping`.",
+      "tags": [
+        "import-error",
+        "spelling",
+        "module"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "patterns": [
+        "import tYping",
+        "from tyPing"
+      ]
+    }
+  ],
+  "name_error": [
+    {
+      "text": "Variable name typo: check return statement variable names. Common: `resutl` -> `result`.",
+      "tags": [
+        "name-error",
+        "typo",
+        "variable"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "patterns": [
+        "resutl",
+        "resullt",
+        "numbres"
+      ]
+    },
+    {
+      "text": "Boolean spelling: Python uses `True`/`False` (capitalized), not `TruE`/`FalsE`.",
+      "tags": [
+        "name-error",
+        "boolean",
+        "case"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.98,
+      "patterns": [
+        "TruE",
+        "FalsE",
+        "truE"
+      ]
+    },
+    {
+      "text": "Undefined variable: ensure variable is defined before use, especially loop variables and conditional branches.",
+      "tags": [
+        "name-error",
+        "undefined",
+        "scope"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.88
+    }
+  ],
+  "type_error": [
+    {
+      "text": "Type mismatch: check function argument types; `int()` cannot accept None — check for None first.",
+      "tags": [
+        "type-error",
+        "argument-type",
+        "None"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.9
+    },
+    {
+      "text": "String-number operations: cannot concatenate str and int with `+`; use `str()` or f-strings.",
+      "tags": [
+        "type-error",
+        "string",
+        "number"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.92
+    },
+    {
+      "text": "Iterable type: check that for-loop target is iterable; None and numbers are not iterable.",
+      "tags": [
+        "type-error",
+        "iteration",
+        "iterable"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.88
+    },
+    {
+      "text": "isinstance check error: filter_integers should check `isinstance(value, int)` not `isinstance(value, str)`. Match function name with type.",
+      "tags": [
+        "type-error",
+        "isinstance",
+        "filter"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "tests": [
+        "input=([4, {}, [], 23.2, 9, 'adasd'],)"
+      ],
+      "regex_fix": {
+        "pattern": "isinstance\\((\\w+),\\s*str\\)",
+        "replacement": "isinstance(\\1, int)",
+        "context": "filter integers"
+      }
+    },
+    {
+      "text": "isinstance and bool: `isinstance(x, int)` returns True for True/False (bool subclasses int). To exclude bools add `and not isinstance(x, bool)`.",
+      "tags": [
+        "type-error",
+        "isinstance",
+        "bool"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.9
+    }
+  ],
+  "index_error": [
+    {
+      "text": "List index out of range: check `i < len(lst)` before `lst[i]`; especially `lst[0]` requires non-empty list.",
+      "tags": [
+        "index-error",
+        "out-of-range",
+        "list"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.95,
+      "tests": [
+        "input=([], )"
+      ]
+    },
+    {
+      "text": "String index out of range: `s[i]` raises error when i >= len(s); validate index.",
+      "tags": [
+        "index-error",
+        "string",
+        "out-of-range"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.92
+    }
+  ],
+  "logic_error": [
+    {
+      "text": "Condition error: check if-condition logic — `>` vs `>=`, `and` vs `or` combinations.",
+      "tags": [
+        "logic-error",
+        "condition",
+        "comparison"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.75
+    },
+    {
+      "text": "Return value logic: check return statement placement and conditions; ensure all branches return correctly.",
+      "tags": [
+        "logic-error",
+        "return-value",
+        "branch"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.7
+    },
+    {
+      "text": "Loop logic: check loop start/end/step and accumulation/multiplication logic within loops.",
+      "tags": [
+        "logic-error",
+        "loop",
+        "iteration"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.68
+    },
+    {
+      "text": "Dedup logic: remove_duplicates should remove all elements appearing more than once, not just keep first occurrence. Use Counter and filter count == 1.",
+      "tags": [
+        "logic-error",
+        "dedup",
+        "Counter"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.85,
+      "tests": [
+        "input=([1, 2, 3, 2, 4, 3, 5],)"
+      ],
+      "code_hint": "from collections import Counter; counts = Counter(numbers); return [x for x in numbers if counts[x] == 1]"
+    },
+    {
+      "text": "Prefix/suffix confusion: all_prefixes should return string[:i] (prefix), not string[i:] (suffix).",
+      "tags": [
+        "logic-error",
+        "prefix",
+        "suffix",
+        "slice"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.92,
+      "tests": [
+        "input=('asdfgh',)"
+      ]
+    },
+    {
+      "text": "Sort direction error: check sorted()/sort() reverse parameter and result order.",
+      "tags": [
+        "logic-error",
+        "sort",
+        "reverse"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.8
+    },
+    {
+      "text": "Undefined helper function: helper functions like is_palindrome, poly must be defined before use and cannot depend on external undefined functions.",
+      "tags": [
+        "logic-error",
+        "undefined-function",
+        "helper"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.88
+    },
+    {
+      "text": "Negative number handling: check negative number behavior in modulo, indexing, odd/even checks, etc.",
+      "tags": [
+        "logic-error",
+        "negative-number",
+        "boundary"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.75
+    }
+  ],
+  "algorithm_change": [
+    {
+      "text": "Algorithm implementation error: usually requires re-reading the problem statement; auto-repair may not resolve this.",
+      "tags": [
+        "algorithm-error",
+        "problem-understanding",
+        "complex-logic"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.3,
+      "flag": "base_model_limit"
+    }
+  ],
+  "semantic_mutation": [
+    {
+      "text": "Operator tampered: check +/-/*// operators are correct, especially subtraction vs addition.",
+      "tags": [
+        "semantic-mutation",
+        "operator",
+        "tampered"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.8,
+      "matched_attack_patterns": [
+        "arithmetic-operator"
+      ]
+    },
+    {
+      "text": "Comparison operator tampered: check </>/<=/>=/== correctness, especially < vs > direction.",
+      "tags": [
+        "semantic-mutation",
+        "comparison-operator",
+        "tampered"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.82,
+      "matched_attack_patterns": [
+        "relational-operator"
+      ]
+    },
+    {
+      "text": "Boolean value tampered: check if True/False are flipped, and whether and/or are correct.",
+      "tags": [
+        "semantic-mutation",
+        "boolean",
+        "tampered"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.78,
+      "matched_attack_patterns": [
+        "boolean-value"
+      ]
+    }
+  ],
+  "control_flow_change": [
+    {
+      "text": "Loop condition tampered: check while/for conditions, especially termination conditions.",
+      "tags": [
+        "control-flow",
+        "loop",
+        "condition"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.75,
+      "matched_attack_patterns": [
+        "loop-logic"
+      ]
+    },
+    {
+      "text": "Branch condition tampered: check if/elif/else conditions and branch ordering.",
+      "tags": [
+        "control-flow",
+        "branch",
+        "condition"
+      ],
+      "source": "distilled_v3",
+      "confidence": 0.72
+    }
+  ]
+}
