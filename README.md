@@ -230,7 +230,7 @@ FTDI/
 
 ## :clap: Acknowledgements
 
-The MAS backbone in this project is built upon [AutoAgents](https://github.com/Link-AGI/AutoAgents). The defense baselines (Challenger, Inspector) are adapted from [MAS-Resilience](https://github.com/agiresearch/MAS-Resilience). The failure attribution methodology is inspired by [Who&When](https://github.com/mingzefei/whos-responsible-for-a-maf). We appreciate their valuable contributions.
+The MAS backbone in this project is built upon [AutoAgents](https://github.com/Link-AGI/AutoAgents).  We appreciate their valuable contributions.
 
 ---
 
