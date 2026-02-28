@@ -68,7 +68,7 @@ The figure below shows a concrete example of a clean code message, its injected 
 | **Auditor** | `ftdi/auditor.py` | Zero-overhead static scorer — five diagnostic dimensions: Deviation ($w$=0.35), Consistency ($w$=0.25), Uncertainty ($w$=0.20), Boundary ($w$=0.20), Off-by-one ($w$=0.20); outputs anomaly score $s$, `fail_type`, `suspect_span` |
 | **Hook** | `ftdi/hook.py` | Environment-level interceptor — instruments `publish_message` to trigger Auditor and budget gate, then dispatches to tiered repair |
 | **Tiered Repair** | `ftdi/tiered_repair.py` | Cost-benefit tier dispatcher (Algorithm 1): T0 regex fast-patch → T1 constrained local edit → T2 deep regeneration; stops early when budget is exhausted |
-| **Repair Strategy** | `ftdi/repair_strategy.py` | `fail_type` → repair tier mapping; maintains empirical prior $p(\text{tier} \mid \text{fail\_type})$ |
+| **Repair Strategy** | `ftdi/repair_strategy.py` | `fail_type` → repair tier mapping; |
 | **Repair Agent** | `ftdi/repair_agent.py` | LLM-powered repair engine; retrieves typed repair priors from the knowledge base as prompting evidence |
 | **Knowledge Base** | `knowledge_base/` | `distilled_cures.json` — failure-type-indexed repair priors distilled from historical trajectories; `cure_library.json` — generic fallback |
 | **Defense Baselines** | `ftdi/defense_baseline.py` | Challenger & Inspector baselines (Huang et al., 2024) |
