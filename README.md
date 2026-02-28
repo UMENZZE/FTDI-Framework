@@ -234,16 +234,3 @@ The MAS backbone in this project is built upon [AutoAgents](https://github.com/L
 
 ---
 
-## :bookmark: Citation
-
-If you find this work useful, please cite:
-
-```bibtex
-@article{men2026ftdi,
-  title     = {FTDI: A Budget-Aware Self-Healing Framework for Resilient LLM Multi-Agent Code Generation},
-  author    = {Men, Sixue and Tong, Qinyue and Zuo, Rui and Lu, Zheming},
-  journal   = {Knowledge-Based Systems},
-  year      = {2026},
-  url       = {https://github.com/UMENZZE/FTDI-Framework}
-}
-```
