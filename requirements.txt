@@ -1,0 +1,34 @@
+# ============================================================
+# FTDI: Fault-Tolerant Defense with Distilled Immunity
+# Requirements
+# Python >= 3.9
+# ============================================================
+
+# -------- Core HTTP / LLM API --------
+httpx==0.24.0          # Async HTTP client (repair_agent.py LLM calls)
+requests==2.30.0       # Sync HTTP client (defense_baseline.py)
+openai==0.27.2         # OpenAI-compatible API client (fault_injection/auto_inject.py)
+
+# -------- Async runtime --------
+aiohttp==3.8.4         # Async HTTP session (evaluation runner)
+anyio==3.7.1           # Async compatibility layer
+
+# -------- Data / Config --------
+pydantic==1.10.7       # Data validation (AutoAgents schema)
+python-dotenv==1.0.0   # .env.inference credential loading
+PyYAML==6.0            # Config file parsing
+
+# -------- Utilities --------
+tenacity==8.2.2        # Retry logic
+loguru==0.6.0          # Structured logging
+tqdm==4.64.1           # Progress bars
+
+# -------- AutoAgents backbone --------
+# The MAS backbone (autoagents / autoagents_ext) is bundled in AutoAgents-main/.
+# Install it in editable mode before running FTDI:
+#
+#   pip install -e ../AutoAgents-main
+#
+# Or add the AutoAgents-main directory to PYTHONPATH:
+#
+#   export PYTHONPATH=/path/to/AutoAgents-main:$PYTHONPATH
