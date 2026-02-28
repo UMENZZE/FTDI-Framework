@@ -190,7 +190,7 @@ Representative experiment outputs are provided in [`sample_results/`](sample_res
 | `humaneval_ftdi` | FTDI repair | HumanEval | 0.8 | 0.3 |
 | `humaneval_plus_healthy` | Healthy baseline | HumanEval+ | 0 | 0 |
 | `humaneval_plus_attack` | Attack only | HumanEval+ | 0.8 | 0.3 |
-| `humaneval_plus_ftdi` | FTDI repair | HumanEval+ | 0.775 | 0.3 |
+| `humaneval_plus_ftdi` | FTDI repair | HumanEval+ | 0.8 | 0.3 |
 | `mbpp_healthy` | Healthy baseline | MBPP | 0 | 0 |
 | `mbpp_attack` | Attack only | MBPP | 0.8 | 0.3 |
 | `mbpp_ftdi` | FTDI repair | MBPP | 0.8 | 0.3 |
