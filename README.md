@@ -37,13 +37,6 @@
 
 ---
 
-## :memo: ToDo List
-
-- [ ] Release full experiment result data.
-- [x] Release FTDI framework source code.
-- [x] Release sample results on HumanEval, HumanEval+, and MBPP.
-
----
 
 ## Overview
 
@@ -74,7 +67,6 @@ The figure below shows a concrete example of a clean code message, its injected 
 | **Repair Strategy** | `ftdi/repair_strategy.py` | `fail_type` → repair tier mapping; |
 | **Repair Agent** | `ftdi/repair_agent.py` | LLM-powered repair engine; retrieves typed repair priors from the knowledge base as prompting evidence |
 | **Knowledge Base** | `knowledge_base/` | `distilled_cures.json` — failure-type-indexed repair priors distilled from historical trajectories; `cure_library.json` — generic fallback |
-| **Defense Baselines** | `ftdi/defense_baseline.py` | Challenger & Inspector baselines (Huang et al., 2024) |
 
 ### Fault Injection Model
 
@@ -83,7 +75,7 @@ Injection is controlled by two probabilities:
 - **$P_e$** — probability that a selected line within that message is mutated
 - **`max_lines`** — cap on the number of modified lines per message
 
-Error types: `syntax`, `semantic`, `text`, `translate`
+Error types: `syntax`, `text`, `translate`
 
 Each run writes a **manifest** (`seed` + `corrupted_spans` + `code_diff`) so the exact same faults can be replayed across all compared methods for fair evaluation. Pre-generated manifests for the paper's main experiments are in `fault_injection/manifests/`.
 
@@ -175,7 +167,7 @@ OPENAI_API_MODEL=qwen2.5-7b-instruct
 # Repair agent (can be same local model or a stronger remote model)
 REPAIR_BASE_URL=https://your-api-endpoint/v1
 REPAIR_API_KEY=your-repair-key
-REPAIR_MODEL=deepseek-v3
+REPAIR_MODEL=gpt-4o
 ```
 
 ---
