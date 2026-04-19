@@ -75,9 +75,9 @@ def _call_chat_api(messages: List[Dict], max_tokens: int = 1024, temperature: fl
     """
     global _DEFENSE_TOKEN_STATS
     
-    base_url = os.environ.get("REPAIR_BASE_URL", "https://xiaoai.plus/v1").rstrip("/")
-    api_key = os.environ.get("REPAIR_API_KEY", "sk-AkZZh3zNSaKJU9mqHNy8PFxRqSjJgDlo2b7293v6TM8wzH1e")
-    model = os.environ.get("REPAIR_MODEL", "deepseek-v3")
+    base_url = os.environ.get("REPAIR_BASE_URL", "").rstrip("/")
+    api_key = os.environ.get("REPAIR_API_KEY", "")
+    model = os.environ.get("REPAIR_MODEL", "")
     
     url = f"{base_url}/chat/completions"
     headers = {
