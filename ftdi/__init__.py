@@ -7,4 +7,3 @@
 #   repair_strategy  - Error type -> repair strategy mapping
 #   tiered_repair    - Tiered repair dispatch (repair_if_needed)
 #   hook             - Environment monkey-patch orchestration
-#   defense_baseline - Challenger + Inspector defense agents
