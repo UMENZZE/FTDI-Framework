@@ -1,15 +1,15 @@
 <p align="center">
   <h2 align="center">
-  FTDI: A Budget-Aware Self-Healing Framework for Resilient LLM Multi-Agent Code Generation
+  FTDI: A Budget-Aware Self-Healing Framework for LLM Multi-Agent Code Generation
   </h2>
   <p align="center">
     <a><strong>Sixue Men</strong></a><sup>1</sup>
     ·
-    <a><strong>Qinyue Tong</strong></a><sup>1</sup>
-    ·
-    <a><strong>Rui Zuo</strong></a><sup>1</sup>
-    ·
     <a><strong>Zheming Lu</strong></a><sup>1*</sup>
+    ·
+    <a><strong>Hao Luo</strong></a><sup>1</sup>
+    ·
+    <a><strong>Yangming Zheng</strong></a><sup>1</sup>
     <br>
     <sup>1</sup>School of Aeronautics and Astronautics, Zhejiang University, Hangzhou 310027, Zhejiang, China
     <br>
